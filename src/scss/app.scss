@@ -7,6 +7,19 @@ body {
   background-color: $background;
 }
 
+.lvl1 {
+  .lvl2 {
+    ul {
+      li {
+        color: green;
+      }
+      li:last-child {
+        color: yellow;
+      }
+    }
+  }
+}
+
 .wrapper {
   width: calc(100vw - 100px);
   height: 100%;
