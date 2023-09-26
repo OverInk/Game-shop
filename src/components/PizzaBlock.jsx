@@ -1,9 +1,21 @@
-function PizzaBlock(props) {
-  console.log(props);
+import { useState } from "react";
+
+function PizzaBlock({title, price}) {
+
+	const {a, b, c, d}= {a:1, b:2, c:3, d:4}
+	// const a = obj.a;
+	// const b = obj.b;
+	// const c = obj.c;
+	// const d = obj.d;
+	console.log(a, b, c, d)
+
+
+	const [pizzaC, setPizzaC] = useState(0);
+
 
   return (
     <div class="pizza-block">
-      <h4 class="pizza-block__title">{props.title}</h4>
+      <h4 class="pizza-block__title">{title}</h4>
       <img
         class="pizza-block__image"
         src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
@@ -21,8 +33,8 @@ function PizzaBlock(props) {
         </ul>
       </div>
       <div class="pizza-block__bottom">
-        <div class="pizza-block__price"> от {props.price}</div>
-        <div class="button button--outline button--add">
+        <div class="pizza-block__price"> от {price}</div>
+        <button class="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -35,8 +47,8 @@ function PizzaBlock(props) {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
-        </div>
+          <i>{pizzaC}</i>
+        </button>
       </div>
     </div>
   );
