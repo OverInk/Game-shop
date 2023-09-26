@@ -1,6 +1,6 @@
 function Categor() {
   return (
-    <div class="categories">
+    <div className="categories">
       <ul>
         <li>Все</li>
         <li>Мясные</li>

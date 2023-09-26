@@ -8,7 +8,7 @@ import PizzaBlock from './components/PizzaBlock';
 
 function App() {
   return (
-    <div class="wrapper">
+    <div className="wrapper">
       <div className="lvl1">
         <div className="lvl2">
           <ul className="lvl3">
@@ -19,14 +19,14 @@ function App() {
         </div>
       </div>
       <Header />
-      <div class="content">
-        <div class="container">
-          <div class="content__top">
+      <div className="content">
+        <div className="container">
+          <div className="content__top">
             <Categor />
             <Sort />
           </div>
-          <h2 class="content__title">Все пиццы</h2>
-          <div class="content__items">
+          <h2 className="content__title">Все пиццы</h2>
+          <div className="content__items">
             <PizzaBlock title="Мексиканская" price={500} />
             <PizzaBlock test="222" title="Test" price="350" />
             <PizzaBlock />

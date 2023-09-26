@@ -1,27 +1,21 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-function PizzaBlock({title, price}) {
+function PizzaBlock({ title, price }) {
+  const [pizzaC, setPizzaC] = useState(0);
 
-	const {a, b, c, d}= {a:1, b:2, c:3, d:4}
-	// const a = obj.a;
-	// const b = obj.b;
-	// const c = obj.c;
-	// const d = obj.d;
-	console.log(a, b, c, d)
-
-
-	const [pizzaC, setPizzaC] = useState(0);
-
+  const onClickBtnAdd = () => {
+    setPizzaC(pizzaC + 1);
+  };
 
   return (
-    <div class="pizza-block">
-      <h4 class="pizza-block__title">{title}</h4>
+    <div className="pizza-block">
+      <h4 className="pizza-block__title">{title}</h4>
       <img
-        class="pizza-block__image"
+        className="pizza-block__image"
         src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
         alt="Pizza"
       />
-      <div class="pizza-block__selector">
+      <div className="pizza-block__selector">
         <ul>
           <li>тонкое</li>
           <li>традиционное</li>
@@ -32,9 +26,9 @@ function PizzaBlock({title, price}) {
           <li>40 см.</li>
         </ul>
       </div>
-      <div class="pizza-block__bottom">
-        <div class="pizza-block__price"> от {price}</div>
-        <button class="button button--outline button--add">
+      <div className="pizza-block__bottom">
+        <div className="pizza-block__price"> от {price}</div>
+        <button onClick={onClickBtnAdd} className="button button--outline button--add">
           <svg
             width="12"
             height="12"
