@@ -1,34 +1,38 @@
 import { useState } from 'react';
+import React from 'react';
 
-function PizzaBlock({ title, price }) {
-  const [pizzaC, setPizzaC] = useState(0);
+function PizzaBlock({ title, price, imgUrl, sizes, types }) {
+  const [activeType, setActiveType] = useState(0);
+  const [actievSize, setactiveSize] = useState(0);
 
-  const onClickBtnAdd = () => {
-    setPizzaC(pizzaC + 1);
-  };
-
+  const typeNames = ['тонкое', 'традиционные'];
   return (
     <div className="pizza-block">
       <h4 className="pizza-block__title">{title}</h4>
-      <img
-        className="pizza-block__image"
-        src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-        alt="Pizza"
-      />
+      <img className="pizza-block__image" src={imgUrl} alt="Pizza" />
       <div className="pizza-block__selector">
         <ul>
-          <li>тонкое</li>
-          <li>традиционное</li>
+          {types?.map((typeId) => (
+            <li
+              onClick={() => setActiveType(typeId)}
+              className={activeType === typeId ? 'active' : ''}>
+              {typeNames[typeId]}
+            </li>
+          ))}
         </ul>
         <ul>
-          <li>26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li>
+          {sizes?.map((sice, index) => (
+            <li
+              onClick={() => setactiveSize(index)}
+              className={actievSize === index ? 'active' : ''}>
+              {sice} см.
+            </li>
+          ))}
         </ul>
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price"> от {price}</div>
-        <button onClick={onClickBtnAdd} className="button button--outline button--add">
+        <button className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -41,7 +45,7 @@ function PizzaBlock({ title, price }) {
             />
           </svg>
           <span>Добавить</span>
-          <i>{pizzaC}</i>
+          <i>0</i>
         </button>
       </div>
     </div>
