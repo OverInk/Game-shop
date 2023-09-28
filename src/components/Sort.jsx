@@ -1,4 +1,9 @@
+import { useState } from "react";
+
 function Sort() {
+
+	const [openList, setOpenlist] = useState(false);
+
   return (
     <div className="sort">
       <div className="sort__label">
@@ -14,15 +19,17 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span onClick={() => setOpenlist(!openList)}>популярности</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li>популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+		{openList && (
+			<div className="sort__popup">
+				<ul>
+					<li>популярности</li>
+					<li>цене</li>
+					<li>алфавиту</li>
+				</ul>
+		 </div>
+		)}
     </div>
   );
 }

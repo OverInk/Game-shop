@@ -23,7 +23,7 @@ function App() {
             <PizzaBlock title="Мексиканская" price={500} />
             <PizzaBlock test="222" title="Test" price="350" />
             {games.map((object) => (
-              <PizzaBlock
+              <PizzaBlock key={object.id}
                 title={object.title}
                 price={object.price}
                 imgUrl={object.img}
