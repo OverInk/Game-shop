@@ -9,6 +9,11 @@ import PizzaBlock from './components/PizzaBlock';
 import games from './assets/img/games.json';
 
 function App() {
+
+	fetch('https://6516b50209e3260018ca2dff.mockapi.io/items').then((res) => {
+		console.log('OTVET', res)
+	})
+
   return (
     <div className="wrapper">
       <Header />
