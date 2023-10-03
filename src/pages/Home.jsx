@@ -41,16 +41,6 @@ const Home = () => {
                 types={object.types}
               />
             ))}
-        {/* {items.map((object) => (
-              <PizzaBlock
-                key={object.id}
-                title={object.title}
-                price={object.price}
-                imgUrl={object.img}
-                sizes={object.sizes}
-                types={object.types}
-              />
-            ))} */}
       </div>
     </>
   );
