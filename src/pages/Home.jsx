@@ -12,10 +12,11 @@ const Home = () => {
   //Глобальный стейт(state), чтобы делать сразу сортировку
   //и по категориям, и по цене/популярности/алфавиту
   const [categorId, setCategorId] = useState(0);
-  const [sort, setSort] = useState(false);
+  const [sort, setSort] = useState(0);
 
   useEffect(() => {
-    fetch('https://6516b50209e3260018ca2dff.mockapi.io/items')
+    setIsLoading(true);
+    fetch('https://6516b50209e3260018ca2dff.mockapi.io/items?category=' + categorId)
       .then((res) => {
         return res.json();
       })
@@ -23,13 +24,13 @@ const Home = () => {
         setItems(arr);
         setIsLoading(false);
       });
-		window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo(0, 0);
+  }, [categorId, sort]);
   return (
     <>
       <div className="content__top">
-        <Categor value={categorId} />
-        <Sort />
+        <Categor valueCategor={categorId} onChangeCategor={(id) => setCategorId(id)} />
+        <Sort valueSort={sort} onChangeSort={(id) => setSort(id)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
