@@ -12,11 +12,20 @@ const Home = () => {
   //Глобальный стейт(state), чтобы делать сразу сортировку
   //и по категориям, и по цене/популярности/алфавиту
   const [categorId, setCategorId] = useState(0);
-  const [sort, setSort] = useState(0);
+  const [sort, setSort] = useState({
+    nameList: 'цене',
+    sortProps: 'price',
+  });
+
+  console.log(sort);
 
   useEffect(() => {
     setIsLoading(true);
-    fetch('https://6516b50209e3260018ca2dff.mockapi.io/items?category=' + categorId)
+    fetch(
+      `https://6516b50209e3260018ca2dff.mockapi.io/items?${
+        categorId > 0 ? `category=${categorId}` : ''
+      }&sortBy=${sort.sortProps}&order=desc`,
+    )
       .then((res) => {
         return res.json();
       })
