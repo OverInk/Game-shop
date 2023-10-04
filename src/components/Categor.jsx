@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
-function Categor() {
+function Categor({value}) {
+
+	console.log(value)
+
   const [chooseCategor, setChoosecategor] = useState(0);
 
   const clickChooseCategor = (index) => {

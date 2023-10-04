@@ -9,6 +9,11 @@ const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  //Глобальный стейт(state), чтобы делать сразу сортировку
+  //и по категориям, и по цене/популярности/алфавиту
+  const [categorId, setCategorId] = useState(0);
+  const [sort, setSort] = useState(false);
+
   useEffect(() => {
     fetch('https://6516b50209e3260018ca2dff.mockapi.io/items')
       .then((res) => {
@@ -18,11 +23,12 @@ const Home = () => {
         setItems(arr);
         setIsLoading(false);
       });
+		window.scrollTo(0, 0);
   }, []);
   return (
     <>
       <div className="content__top">
-        <Categor />
+        <Categor value={categorId} />
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>

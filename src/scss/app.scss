@@ -45,6 +45,10 @@ body {
 	 }
   }
 
+  &_-itemscard {
+	display: grid;
+  }
+
   &__top {
     display: flex;
     align-items: center;
