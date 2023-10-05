@@ -8,13 +8,15 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NewCard from './pages/NewCard';
 
 function App() {
+  const [searchValue, setSearchValue] = useState('');
+
   return (
     <div className="wrapper">
-      <Header />
+      <Header searchValue={searchValue} setSearchValue={setSearchValue} />
       <div className="content">
         <div className="container">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home searchValue={searchValue} />} />
             <Route path="/card" element={<NewCard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

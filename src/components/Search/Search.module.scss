@@ -1,23 +1,31 @@
-.root{
-	display: flex;
-	align-items: center;
+.root {
+  display: flex;
+  align-items: center;
+}
+.search {
+  border-radius: 5px;
+  width: 50%;
+  margin-left: 5px;
+  border: 1px solid grey;
+  position: relative;
+
+  &:focus {
+    border: 1px solid rgb(30, 30, 30);
+  }
 }
 
 .searchicon {
-	background: url(./search-svgrepo-com.svg);
-	background-position: center;
-	background-size: cover;
-	width: 25px;
-	height: 25px;
+  background: url(./search-svgrepo-com.svg);
+  background-position: center;
+  background-size: cover;
+  width: 25px;
+  height: 25px;
 }
 
-.search{
-	border-radius: 5px;
-	width: 50%;
-	margin-left: 5px;
-	border: 1px solid grey;
-
-	&:focus {
-		border: 1px solid rgb(30, 30, 30);
-	}
+.iconTrash {
+  background: url(./icon-trash.svg);
+  background-position: center;
+  background-size: cover;
+  width: 15px;
+  height: 15px;
 }
