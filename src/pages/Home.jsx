@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import Categor from './../components/Categor';
 import Sort from './../components/Sort';
 import PizzaBlock from './../components/PizzaBlock';
 import Skeleton from './../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
+import { MyContext } from '../App';
 
-const Home = ({ searchValue }) => {
+const Home = () => {
+  const { searchValue } = useContext(MyContext);
+
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -67,9 +70,8 @@ const Home = ({ searchValue }) => {
                   types={object.types}
                 />
               ))}
-
       </div>
-		<Pagination onChangePage={(number) => setCurrentPage(number)}/>
+      <Pagination onChangePage={(number) => setCurrentPage(number)} />
     </>
   );
 };
