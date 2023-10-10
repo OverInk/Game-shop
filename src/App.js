@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './scss/app.scss';
 
-import { useSelector, useDispatch } from 'react-redux'
-import { decrement, increment } from './redux/slices/filterSlice'
+import { useSelector, useDispatch } from 'react-redux';
+import { decrement, increment } from './redux/slices/filterSlice';
 
 import Header from './components/Header';
 import Home from './pages/Home';
@@ -14,29 +14,22 @@ export const MyContext = React.createContext('');
 
 function App() {
   const [searchValue, setSearchValue] = useState('');
-  const count = useSelector((state) => state.counter.myfilter)
-  const dispatch = useDispatch()
+  const count = useSelector((state) => state.counter.myfilter);
+  const dispatch = useDispatch();
 
   return (
     <div className="wrapper">
-
-<div>
-        <button
-          aria-label="Increment value"
-          onClick={() => dispatch(increment())}
-        >
+      {/* <div>
+        <button aria-label="Increment value" onClick={() => dispatch(increment())}>
           Increment
         </button>
         <span>{count}</span>
-        <button
-          aria-label="Decrement value"
-          onClick={() => dispatch(decrement())}
-        >
+        <button aria-label="Decrement value" onClick={() => dispatch(decrement())}>
           Decrement
         </button>
-      </div>
+      </div> */}
 
-      {/* <MyContext.Provider value={{ searchValue, setSearchValue }}>
+      <MyContext.Provider value={{ searchValue, setSearchValue }}>
         <Header />
         <div className="content">
           <div className="container">
@@ -47,7 +40,7 @@ function App() {
             </Routes>
           </div>
         </div>
-      </MyContext.Provider> */}
+      </MyContext.Provider>
     </div>
   );
 }

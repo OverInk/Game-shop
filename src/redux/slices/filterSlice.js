@@ -1,30 +1,29 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
-export interface CounterState {
-  value: number
-}
-
-const initialState: CounterState = {
-  myfilter: 0,
-}
-
-export const filterSlice = createSlice({
+export const counterSlice = createSlice({
   name: 'filter',
-  initialState,
+  initialState: {
+    myfilter: 0,
+  },
   reducers: {
     increment: (state) => {
-      state.value += 1
+      state.myfilter += 1;
     },
     decrement: (state) => {
-      state.value -= 1
+      state.myfilter -= 1;
     },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload
+    //меняет состояние счетчика, чтобы передать разные значения
+    incrementByAmount: (state, action) => {
+      state.myfilter += action.payload;
+    },
+    test: (state) => {
+      state.myfilter = 66;
     },
   },
-})
+});
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+console.log(counterSlice.actions);
 
-export default counterSlice.reducer
+export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+
+export default counterSlice.reducer;
