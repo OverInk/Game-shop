@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
+import {useDispatch, useSelector } from 'react-redux';
+
 import Categor from './../components/Categor';
 import Sort from './../components/Sort';
 import PizzaBlock from './../components/PizzaBlock';
@@ -8,6 +10,16 @@ import Pagination from '../components/Pagination';
 import { MyContext } from '../App';
 
 const Home = () => {
+	const dispatch = useDispatch();
+	console.log(dispatch, 'App dispatch')
+	const categorId = useSelector(state => state.filter.categorId);
+
+	console.log(categorId)
+
+	const onChangeCategor = (id) => {
+		console.log(id)
+	}
+
   const { searchValue } = useContext(MyContext);
 
   const [items, setItems] = useState([]);
@@ -15,7 +27,7 @@ const Home = () => {
 
   //Глобальный стейт(state), чтобы делать сразу сортировку
   //и по категориям, и по цене/популярности/алфавиту
-  const [categorId, setCategorId] = useState(0);
+//   const [categorId, setCategorId] = useState(0);
   const [sort, setSort] = useState({
     nameList: 'цене',
     sortProps: 'price',
@@ -44,7 +56,7 @@ const Home = () => {
   return (
     <>
       <div className="content__top">
-        <Categor valueCategor={categorId} onChangeCategor={(id) => setCategorId(id)} />
+        <Categor valueCategor={categorId} onChangeCategor={onChangeCategor} />
         <Sort valueSort={sort} onChangeSort={(id) => setSort(id)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>

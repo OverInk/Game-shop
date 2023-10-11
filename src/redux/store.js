@@ -1,16 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import counterReducer from './slices/filterSlice';
+import filter from './slices/filterSlice'
 
 //configureStore- создает хранилище из библиотеки redax toolkit
-export default configureStore({
+export const store = configureStore({
   //Само Redux хранилище - {}, там ничего нет, значит хранилище пустое
   //counter-само хранилищеб таких counter может быть много с своим хранилищем
   //с разными редюсами (reducer)
   reducer: {
-    counter: counterReducer,
+    filter,
   },
 });
+
+console.log(store,'REDUX' )
 
 // console.log(store)
 
