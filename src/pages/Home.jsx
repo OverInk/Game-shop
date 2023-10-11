@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import {useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setCategorId } from '../redux/slices/filterSlice';
 
 import Categor from './../components/Categor';
 import Sort from './../components/Sort';
@@ -10,32 +12,25 @@ import Pagination from '../components/Pagination';
 import { MyContext } from '../App';
 
 const Home = () => {
-	const dispatch = useDispatch();
-	console.log(dispatch, 'App dispatch')
-	const categorId = useSelector(state => state.filter.categorId);
+  const dispatch = useDispatch();
+  //   console.log(dispatch, 'App dispatch');
+  const categorId = useSelector((state) => state.filter.categorId);
+  const sort = useSelector((state) => state.filter.sort.sortProps);
 
-	console.log(categorId)
+  //или же const {categorId, sort} = useSelector((state) => state.filter)
 
-	const onChangeCategor = (id) => {
-		console.log(id)
-	}
+  const onChangeCategor = (id) => {
+    dispatch(setCategorId(id));
+  };
 
   const { searchValue } = useContext(MyContext);
 
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  //Глобальный стейт(state), чтобы делать сразу сортировку
-  //и по категориям, и по цене/популярности/алфавиту
-//   const [categorId, setCategorId] = useState(0);
-  const [sort, setSort] = useState({
-    nameList: 'цене',
-    sortProps: 'price',
-  });
-
   const [currentPage, setCurrentPage] = useState(1);
 
-  console.log(sort);
+  //   console.log(sort);
 
   useEffect(() => {
     setIsLoading(true);
@@ -57,7 +52,7 @@ const Home = () => {
     <>
       <div className="content__top">
         <Categor valueCategor={categorId} onChangeCategor={onChangeCategor} />
-        <Sort valueSort={sort} onChangeSort={(id) => setSort(id)} />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">

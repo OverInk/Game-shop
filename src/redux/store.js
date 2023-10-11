@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import filter from './slices/filterSlice'
+import filter from './slices/filterSlice';
 
 //configureStore- создает хранилище из библиотеки redax toolkit
 export const store = configureStore({
@@ -12,7 +12,7 @@ export const store = configureStore({
   },
 });
 
-console.log(store,'REDUX' )
+// console.log(store,'REDUX' )
 
 // console.log(store)
 
