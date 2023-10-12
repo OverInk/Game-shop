@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import React from 'react';
 
-function PizzaBlock({ title, price, imgUrl, sizes, types }) {
+function PizzaBlock({ title, price, imgUrl, sizes, types, skills }) {
   const [activeType, setActiveType] = useState(0);
   const [actievSize, setactiveSize] = useState(0);
 
@@ -11,6 +11,7 @@ function PizzaBlock({ title, price, imgUrl, sizes, types }) {
 		<div className="pizza-block">
       <h4 className="pizza-block__title">{title}</h4>
       <img className="pizza-block__image" src={imgUrl} alt="Pizza" />
+		<div>{skills}</div>
       <div className="pizza-block__selector">
         <ul>
           {types?.map((typeId) => (

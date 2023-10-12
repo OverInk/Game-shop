@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector } from 'react-redux';
 
-import { setCategorId } from '../redux/slices/filterSlice';
+import axios from 'axios';
 
 import Categor from './../components/Categor';
 import Sort from './../components/Sort';
@@ -11,48 +11,61 @@ import Skeleton from './../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import { MyContext } from '../App';
 
+import {setPageCount} from './redux/slice/filterSlice';
+
 const Home = () => {
-  const dispatch = useDispatch();
-  //   console.log(dispatch, 'App dispatch');
-  const categorId = useSelector((state) => state.filter.categorId);
-  const sort = useSelector((state) => state.filter.sort.sortProps);
+	const dispatch = useDispatch();
+	console.log(dispatch, 'App dispatch')
+	const categorId = useSelector(state => state.filter.categorId);
 
-  //или же const {categorId, sort} = useSelector((state) => state.filter)
+	console.log(categorId)
 
-  const onChangeCategor = (id) => {
-    dispatch(setCategorId(id));
-  };
+	const onChangeCategor = (id) => {
+		console.log(id)
+	}
 
   const { searchValue } = useContext(MyContext);
 
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [currentPage, setCurrentPage] = useState(1);
-
-  //   console.log(sort);
+  //Глобальный стейт(state), чтобы делать сразу сортировку
+  //и по категориям, и по цене/популярности/алфавиту
+//   const [categorId, setCategorId] = useState(0);
+  const [sort, setSort] = useState({
+    nameList: 'цене',
+    sortProps: 'price',
+  });
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(
-      `https://6516b50209e3260018ca2dff.mockapi.io/items?page=1&limit=2${
-        categorId > 0 ? `category=${categorId}` : ''
-      }&sortBy=${sort.sortProps}&order=desc`,
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((arr) => {
-        setItems(arr);
-        setIsLoading(false);
-      });
+   //  fetch(
+   //    `https://6516b50209e3260018ca2dff.mockapi.io/items?page=1&limit=2${
+   //      categorId > 0 ? `category=${categorId}` : ''
+   //    }&sortBy=${sort.sortProps}&order=desc`,
+   //  )
+   //    .then((res) => {
+   //      return res.json();
+   //    })
+   //    .then((arr) => {
+   //      setItems(arr);
+   //      setIsLoading(false);
+   //    });
+
+
+	axios.get(`https://6516b50209e3260018ca2dff.mockapi.io/items?page=1&limit=2${
+		categorId > 0 ? `category=${categorId}` : ''
+	 }&sortBy=${sort.sortProps}&order=desc`).then((res) => {
+		setItems(res.data);
+   	setIsLoading(false);
+	 })
     window.scrollTo(0, 0);
   }, [categorId, sort, currentPage]);
   return (
     <>
       <div className="content__top">
         <Categor valueCategor={categorId} onChangeCategor={onChangeCategor} />
-        <Sort />
+        <Sort valueSort={sort} onChangeSort={(id) => setSort(id)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
@@ -73,6 +86,7 @@ const Home = () => {
                   title={object.title}
                   price={object.price}
                   imgUrl={object.img}
+						skills={object.skills}
                   sizes={object.sizes}
                   types={object.types}
                 />
