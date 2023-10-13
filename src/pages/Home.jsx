@@ -11,14 +11,14 @@ import Skeleton from './../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import { MyContext } from '../App';
 
-import { setCurrentPage } from './../redux/slices/filterSlice';
+// import { setCurrentPage } from './../redux/slices/filterSlice';
 
 const Home = () => {
   const dispatch = useDispatch();
   console.log(dispatch, 'App dispatch');
   const categorId = useSelector((state) => state.filter.categorId);
-  const sort = useSelector((state) => state.filter.sort);
-  const currentPage = useSelector((state) => state.filter.currentPage);
+//   const sort = useSelector((state) => state.filter.sort);
+//   const currentPage = useSelector((state) => state.filter.currentPage);
 
   console.log(categorId);
 
@@ -34,14 +34,16 @@ const Home = () => {
   //Глобальный стейт(state), чтобы делать сразу сортировку
   //и по категориям, и по цене/популярности/алфавиту
   //   const [categorId, setCategorId] = useState(0);
-  //   const [sort, setSort] = useState({
-  //     nameList: 'цене',
-  //     sortProps: 'price',
-  //   });
+    const [sort, setSort] = useState({
+      nameList: 'цене',
+      sortProps: 'price',
+    });
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
-  };
+//   const onChangePage = (number) => {
+//     dispatch(setCurrentPage(number));
+//   };
+
+const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     setIsLoading(true);
@@ -60,7 +62,7 @@ const Home = () => {
 
     axios
       .get(
-        `https://6516b50209e3260018ca2dff.mockapi.io/items?page=1&limit=2${
+        `https://6516b50209e3260018ca2dff.mockapi.io/items?page=${currentPage}&limit=3${
           categorId > 0 ? `category=${categorId}` : ''
         }&sortBy=${sort.sortProps}&order=desc`,
       )
@@ -76,10 +78,8 @@ const Home = () => {
         <Categor valueCategor={categorId} onChangeCategor={onChangeCategor} />
         <Sort valueSort={sort} onChangeSort={(id) => setSort(id)} />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
+      <h2 className="content__title">Все games</h2>
       <div className="content__items">
-        <Skeleton title="Мексиканская" price={500} />
-        <PizzaBlock test="222" title="Test" price="350" />
         {isLoading
           ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
           : items
@@ -101,7 +101,7 @@ const Home = () => {
                 />
               ))}
       </div>
-      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
+      <Pagination  onChangePage={(number) => setCurrentPage(number)} />
     </>
   );
 };
