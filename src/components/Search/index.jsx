@@ -6,39 +6,33 @@ import style from './Search.module.scss';
 import { MyContext } from '../../App';
 
 const Search = () => {
-const [value, setValue] = useState('')
-
-  const { searchValue, setSearchValue } = useContext(MyContext);
-
-
+  const [value, setValue] = useState('');
+  const { setSearchValue } = useContext(MyContext);
   const inputRef = useRef();
 
-  const onClickClear= () => {
-	// setSearchValue(''),
-	setValue('')
-	inputRef.current.focus()
-  }
+  const onClickClear = () => {
+    setSearchValue(''), setValue('');
+    inputRef.current.focus();
+  };
 
   const updateSearch = useCallback(
-	debounce((str) => {
-		// setSearchValue(str),
-		console.log(str)
-	}, 1000),
-	[],
-  )
+    debounce((str) => {
+      setSearchValue(str), console.log(str);
+    }, 1000),
+    [],
+  );
 
-  const onTestDebounce= (event) => {
-	setValue(event.target.value),
-	updateSearch(event.target.value)
-  }
+  const onChangeInput = (event) => {
+    setValue(event.target.value), updateSearch(event.target.value);
+  };
 
   return (
     <div className={style.root}>
       <svg className={style.searchicon} />
       <input
-			ref = {inputRef}
+        ref={inputRef}
         value={value}
-        onChange={onTestDebounce}
+        onChange={onChangeInput}
         className={style.search}
         placeholder="Поиск.."
       />
