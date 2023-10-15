@@ -9,6 +9,8 @@ import Skeleton from './../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import { MyContext } from '../App';
 
+import { setCurrentPage } from './../redux/slices/filterSlice';
+
 const Home = () => {
   const dispatch = useDispatch();
   const categorId = useSelector((state) => state.filter.categorId);
@@ -56,7 +58,7 @@ const Home = () => {
 
     axios
       .get(
-        `https://6516b50209e3260018ca2dff.mockapi.io/items?page=${currentPage}&limit=3${
+        `https://6516b50209e3260018ca2dff.mockapi.io/items?page=1&limit=2${
           categorId > 0 ? `category=${categorId}` : ''
         }&sortBy=${sort.sortProps}&order=desc`,
       )
@@ -72,8 +74,10 @@ const Home = () => {
         <Categor valueCategor={categorId} onChangeCategor={onChangeCategor} />
         <Sort />
       </div>
-      <h2 className="content__title">Все games</h2>
+      <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
+        <Skeleton title="Мексиканская" price={500} />
+        <PizzaBlock test="222" title="Test" price="350" />
         {isLoading
           ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
           : items
@@ -95,7 +99,7 @@ const Home = () => {
                 />
               ))}
       </div>
-      <Pagination value={currentPage} onChangePage={onChangePage} />
+      <Pagination onChangePage={(number) => setCurrentPage(number)} />
     </>
   );
 };

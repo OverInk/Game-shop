@@ -11,13 +11,15 @@ const Search = () => {
   const inputRef = useRef();
 
   const onClickClear = () => {
-    setSearchValue(''), setValue('');
+    // setSearchValue(''),
+    setValue('');
     inputRef.current.focus();
   };
 
   const updateSearch = useCallback(
     debounce((str) => {
-      setSearchValue(str), console.log(str);
+      // setSearchValue(str),
+      console.log(str);
     }, 1000),
     [],
   );
