@@ -1,58 +1,43 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
+import qs from 'qs';
+import { useNavigate } from 'react-router-dom';
 
-import { setCategorId, setCurrentPage } from './../redux/slices/filterSlice';
+import { setCategorId, setCurrentPage, setFilters, setSort } from './../redux/slices/filterSlice';
 
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
 import Categor from './../components/Categor';
-import Sort from './../components/Sort';
+import Sort, { listSpisok } from './../components/Sort';
 import PizzaBlock from './../components/PizzaBlock';
 import Skeleton from './../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import { MyContext } from '../App';
 
 const Home = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isSeach = useRef(false);
+  const isMounted = useRef(false);
   const categorId = useSelector((state) => state.filter.categorId);
   const sort = useSelector((state) => state.filter.sort.sortProps);
   const currentPage = useSelector((state) => state.filter.currentPage);
-
-  const onChangeCategor = (id) => {
-    dispatch(setCategorId(id));
-  };
-
   const { searchValue } = useContext(MyContext);
 
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  //Глобальный стейт(state), чтобы делать сразу сортировку
-  //и по категориям, и по цене/популярности/алфавиту
-  //   const [categorId, setCategorId] = useState(0);
-  //   const [sort, setSort] = useState({
-  //     nameList: 'цене',
-  //     sortProps: 'price',
-  //   });
-
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangeCategor = (id) => {
+    dispatch(setCategorId(id));
   };
 
-  useEffect(() => {
+  const fetchGames = () => {
     setIsLoading(true);
     //  fetch(
     //    `https://6516b50209e3260018ca2dff.mockapi.io/items?page=1&limit=2${
     //      categorId > 0 ? `category=${categorId}` : ''
     //    }&sortBy=${sort.sortProps}&order=desc`,
     //  )
-    //    .then((res) => {
-    //      return res.json();
-    //    })
-    //    .then((arr) => {
-    //      setItems(arr);
-    //      setIsLoading(false);
-    //    });
 
     axios
       .get(
@@ -64,8 +49,48 @@ const Home = () => {
         setItems(res.data);
         setIsLoading(false);
       });
+  };
+  useEffect(() => {
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortProps: sort.sortProps,
+        categorId,
+        currentPage,
+      });
+
+      navigate(`?${queryString}`);
+    }
+    isMounted.current = true;
+  }, [categorId, sort.sortProps, searchValue, currentPage]);
+
+  useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+      const sort = listSpisok.find((obj) => obj.sortProps === params.sortProps);
+      dispatch(
+        setFilters({
+          ...params,
+          sort,
+        }),
+      );
+      isSeach.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
-  }, [categorId, sort.sortProps, currentPage]);
+
+    if (isSeach.current) {
+      fetchGames();
+    }
+
+    isSeach.current = false;
+  }, [categorId, sort.sortProps, searchValue, currentPage]);
+
+  const onChangePage = (number) => {
+    dispatch(setCurrentPage(number));
+  };
+
   return (
     <>
       <div className="content__top">
@@ -97,7 +122,7 @@ const Home = () => {
                 />
               ))}
       </div>
-      <Pagination value={currentPage} onChangePage={onChangePage} />
+      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </>
   );
 };
