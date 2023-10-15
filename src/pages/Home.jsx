@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
+import { setCategorId, setCurrentPage } from './../redux/slices/filterSlice';
+
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
@@ -10,19 +12,13 @@ import Skeleton from './../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import { MyContext } from '../App';
 
-import { setCategorId, setCurrentPage } from './../redux/slices/filterSlice';
-
 const Home = () => {
   const dispatch = useDispatch();
-  console.log(dispatch, 'App dispatch');
   const categorId = useSelector((state) => state.filter.categorId);
-  //   const sort = useSelector((state) => state.filter.sort);
-  //   const currentPage = useSelector((state) => state.filter.currentPage);
-
-  console.log(categorId);
+  const sort = useSelector((state) => state.filter.sort.sortProps);
+  const currentPage = useSelector((state) => state.filter.currentPage);
 
   const onChangeCategor = (id) => {
-    console.log('id categor', id);
     dispatch(setCategorId(id));
   };
 
@@ -34,16 +30,14 @@ const Home = () => {
   //Глобальный стейт(state), чтобы делать сразу сортировку
   //и по категориям, и по цене/популярности/алфавиту
   //   const [categorId, setCategorId] = useState(0);
-  const [sort, setSort] = useState({
-    nameList: 'цене',
-    sortProps: 'price',
-  });
+  //   const [sort, setSort] = useState({
+  //     nameList: 'цене',
+  //     sortProps: 'price',
+  //   });
 
-  //   const onChangePage = (number) => {
-  //     dispatch(setCurrentPage(number));
-  //   };
-
-  const [currentPage, setCurrentPage] = useState(1);
+  const onChangePage = (number) => {
+    dispatch(setCurrentPage(number));
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -62,14 +56,16 @@ const Home = () => {
 
     axios
       .get(
-        `https://6516b50209e3260018ca2dff.mockapi.io/items?page=${currentPage}&limit=3${categorId}&sortBy=${sort}&order=${order}${searchValue}`,
+        `https://6516b50209e3260018ca2dff.mockapi.io/items?page=${currentPage}&limit=3${
+          categorId > 0 ? `category=${categorId}` : ''
+        }&sortBy=${sort.sortProps}&order=desc`,
       )
       .then((res) => {
         setItems(res.data);
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categorId, sort, currentPage]);
+  }, [categorId, sort.sortProps, currentPage]);
   return (
     <>
       <div className="content__top">
