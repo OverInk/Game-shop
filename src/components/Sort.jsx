@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { UseSelector, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setSort } from '../redux/slices/filterSlice';
 
 const listSpisok = [

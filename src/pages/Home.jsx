@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { setCategorId, setCurrentPage } from './../redux/slices/filterSlice';
 import axios from 'axios';
 import Categor from './../components/Categor';
 import Sort from './../components/Sort';
@@ -7,8 +8,6 @@ import PizzaBlock from './../components/PizzaBlock';
 import Skeleton from './../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import { MyContext } from '../App';
-
-import { setCategorId, setCurrentPage } from './../redux/slices/filterSlice';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,7 +18,8 @@ const Home = () => {
   console.log(categorId);
 
   const onChangeCategor = (id) => {
-    console.log(id);
+    console.log('id categor', id);
+    dispatch(setCategorId(id));
   };
 
   const { searchValue } = useContext(MyContext);
@@ -56,7 +56,9 @@ const Home = () => {
 
     axios
       .get(
-        `https://6516b50209e3260018ca2dff.mockapi.io/items?page=${currentPage}&limit=3${categorId}&sortBy=${sort}&order=${order}${searchValue}`,
+        `https://6516b50209e3260018ca2dff.mockapi.io/items?page=${currentPage}&limit=3${
+          categorId > 0 ? `category=${categorId}` : ''
+        }&sortBy=${sort.sortProps}&order=desc`,
       )
       .then((res) => {
         setItems(res.data);
@@ -68,7 +70,7 @@ const Home = () => {
     <>
       <div className="content__top">
         <Categor valueCategor={categorId} onChangeCategor={onChangeCategor} />
-        <Sort valueSort={sort} onChangeSort={(id) => setSort(id)} />
+        <Sort />
       </div>
       <h2 className="content__title">Все games</h2>
       <div className="content__items">
