@@ -7,24 +7,24 @@ import { MyContext } from '../../App';
 
 const Search = () => {
   const [value, setValue] = useState('');
-  const { setSearchValue } = useContext(MyContext);
+
+  const { searchValue, setSearchValue } = useContext(MyContext);
+
   const inputRef = useRef();
 
   const onClickClear = () => {
-    // setSearchValue(''),
-    setValue('');
+    setSearchValue(''), setValue('');
     inputRef.current.focus();
   };
 
   const updateSearch = useCallback(
     debounce((str) => {
-      // setSearchValue(str),
-      console.log(str);
+      setSearchValue(str), console.log(str);
     }, 1000),
     [],
   );
 
-  const onChangeInput = (event) => {
+  const onTestDebounce = (event) => {
     setValue(event.target.value), updateSearch(event.target.value);
   };
 
@@ -34,7 +34,7 @@ const Search = () => {
       <input
         ref={inputRef}
         value={value}
-        onChange={onChangeInput}
+        onChange={onTestDebounce}
         className={style.search}
         placeholder="Поиск.."
       />

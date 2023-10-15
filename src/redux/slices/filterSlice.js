@@ -21,7 +21,7 @@ const filterSlice = createSlice({
       state.sort = action.payload;
     },
     setCurrentPage(state, action) {
-      state.currentPage = action.payload;
+      state.pageCount = action.payload;
     },
   },
 });
