@@ -8,24 +8,26 @@ import { MyContext } from '../../App';
 const Search = () => {
   const [value, setValue] = useState('');
 
-  const { searchValue } = useContext(MyContext);
+  const { setSearchValue } = useContext(MyContext);
 
   const inputRef = useRef();
 
   const onClickClear = () => {
-    //  searchValue(''), setValue('');
+    setSearchValue('');
+    setValue('');
     inputRef.current.focus();
   };
 
   const updateSearch = useCallback(
     debounce((str) => {
-      searchValue(str);
+      setSearchValue(str);
     }, 1000),
     [],
   );
 
   const onTestDebounce = (event) => {
-    setValue(event.target.value), updateSearch(event.target.value);
+    setValue(event.target.value);
+    updateSearch(event.target.value);
   };
 
   return (

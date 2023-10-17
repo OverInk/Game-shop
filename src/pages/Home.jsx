@@ -49,39 +49,37 @@ const Home = () => {
         setItems(res.data);
         setIsLoading(false);
       });
-		window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   };
   useEffect(() => {
-   //  if (isMounted.current) {
-   //    const queryString = qs.stringify({
-   //      sortProps: sort.sortProps,
-   //      categorId,
-   //      currentPage,
-   //    });
+    //  if (isMounted.current) {
+    //    const queryString = qs.stringify({
+    //      sortProps: sort.sortProps,
+    //      categorId,
+    //      currentPage,
+    //    });
 
-   //    navigate(`?${queryString}`);
-   //  }
-   //  isMounted.current = true;
-	fetchGames();
+    //    navigate(`?${queryString}`);
+    //  }
+    //  isMounted.current = true;
+    fetchGames();
   }, [categorId, sort.sortProps, searchValue, currentPage]);
 
-//   useEffect(() => {
-//     if (window.location.search) {
-//       const params = qs.parse(window.location.search.substring(1));
-//       const sort = listSpisok.find((obj) => obj.sortProps === params.sortProps);
-//       dispatch(
-//         setFilters({
-//           ...params,
-//           sort,
-//         }),
-//       );
-//       isSeach.current = true;
-//     }
-//   }, []);
+  //   useEffect(() => {
+  //     if (window.location.search) {
+  //       const params = qs.parse(window.location.search.substring(1));
+  //       const sort = listSpisok.find((obj) => obj.sortProps === params.sortProps);
+  //       dispatch(
+  //         setFilters({
+  //           ...params,
+  //           sort,
+  //         }),
+  //       );
+  //       isSeach.current = true;
+  //     }
+  //   }, []);
 
   useEffect(() => {
-
-
     if (isSeach.current) {
       fetchGames();
     }
@@ -97,7 +95,7 @@ const Home = () => {
     <>
       <div className="content__top">
         <Categor valueCategor={categorId} onChangeCategor={onChangeCategor} />
-        <Sort valueSort = {sort}/>
+        <Sort valueSort={sort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
