@@ -97,7 +97,7 @@ const Home = () => {
     <>
       <div className="content__top">
         <Categor valueCategor={categorId} onChangeCategor={onChangeCategor} />
-        <Sort value = {sort}/>
+        <Sort valueSort = {sort}/>
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">

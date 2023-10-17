@@ -9,7 +9,7 @@ export const listSpisok = [
   { nameList: 'алфавиту', sortProps: 'title' },
 ];
 
-function Sort({value}) {
+function Sort({valueSort}) {
   const dispatch = useDispatch();
 
   const [openList, setOpenList] = useState(false);
@@ -34,7 +34,7 @@ function Sort({value}) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpenList(!openList)}>{value.nameList}</span>
+        <span onClick={() => setOpenList(!openList)}>{listSpisok.nameList}</span>
       </div>
       {openList && (
         <div className="sort__popup">
@@ -43,7 +43,7 @@ function Sort({value}) {
               <li
                 key={i}
                 onClick={() => onClickListselect(nameNewObj)}
-                className={value.sortProps === nameNewObj.sortProps ? 'active' : ''}>
+                className={valueSort.sortProps === nameNewObj.sortProps ? 'active' : ''}>
                 {nameNewObj.nameList}
               </li>
             ))}
