@@ -20,7 +20,7 @@ const Home = () => {
   const isSeach = useRef(false);
   const isMounted = useRef(false);
   const categorId = useSelector((state) => state.filter.categorId);
-  const sort = useSelector((state) => state.filter.sort.sortProps);
+  const sort = useSelector((state) => state.filter.sort);
   const currentPage = useSelector((state) => state.filter.currentPage);
   const { searchValue } = useContext(MyContext);
 
@@ -52,32 +52,32 @@ const Home = () => {
     window.scrollTo(0, 0);
   };
   useEffect(() => {
-    //  if (isMounted.current) {
-    //    const queryString = qs.stringify({
-    //      sortProps: sort.sortProps,
-    //      categorId,
-    //      currentPage,
-    //    });
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortProps: sort.sortProps,
+        categorId,
+        currentPage,
+      });
 
-    //    navigate(`?${queryString}`);
-    //  }
-    //  isMounted.current = true;
+      navigate(`?${queryString}`);
+    }
+    isMounted.current = true;
     fetchGames();
   }, [categorId, sort.sortProps, searchValue, currentPage]);
 
-  //   useEffect(() => {
-  //     if (window.location.search) {
-  //       const params = qs.parse(window.location.search.substring(1));
-  //       const sort = listSpisok.find((obj) => obj.sortProps === params.sortProps);
-  //       dispatch(
-  //         setFilters({
-  //           ...params,
-  //           sort,
-  //         }),
-  //       );
-  //       isSeach.current = true;
-  //     }
-  //   }, []);
+  useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+      const sort = listSpisok.find((obj) => obj.sortProps === params.sortProps);
+      dispatch(
+        setFilters({
+          ...params,
+          sort,
+        }),
+      );
+      isSeach.current = true;
+    }
+  }, []);
 
   useEffect(() => {
     if (isSeach.current) {
