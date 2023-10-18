@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { setSort } from '../redux/slices/filterSlice';
@@ -11,16 +11,47 @@ export const listSpisok = [
 
 function Sort({ valueSort }) {
   const dispatch = useDispatch();
-
   const [openList, setOpenList] = useState(false);
+
+  const sortRef = useRef();
 
   const onClickListselect = (obj) => {
     dispatch(setSort(obj));
     setOpenList(false);
   };
 
+  //   useEffect(() => {
+  //     document.body.addEventListener('click', (event) => {
+  //       if (!event.path.includes(sortRef.current)) {
+  //         console.log('кликнули на сорт');
+  //         setOpenList(false);
+  //       }
+  //     });
+  //   }, []);
+
+  //   useEffect(() => {
+  //     document.body.addEventListener('click', (event) => {
+  //       console.log(event.path);
+  //     });
+  //   }, []);
+
+  //   useEffect(() => {
+  //     //он же handleClickOutside как по уроку
+  //     const cancelSortList = (event) => {
+  //       if (!event.path.includes(sortRef.current)) {
+  //         console.log('закроет сорт (sort)');
+  //         setOpenList(false);
+  //       }
+  //     };
+  //     document.body.addEventListener('click', cancelSortList);
+
+  //     return () => {
+  //       document.body.removeEventListener('click', cancelSortList);
+  //     };
+  //   }, []);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
