@@ -2,6 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import filter from './slices/filterSlice';
 
+import cart from './slices/cartSlice';
+
 //configureStore- создает хранилище из библиотеки redax toolkit
 export const store = configureStore({
   //Само Redux хранилище - {}, там ничего нет, значит хранилище пустое
@@ -9,6 +11,7 @@ export const store = configureStore({
   //с разными редюсами (reducer)
   reducer: {
     filter,
+    cart,
   },
 });
 
