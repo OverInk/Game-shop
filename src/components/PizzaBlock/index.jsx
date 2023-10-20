@@ -12,24 +12,24 @@ function PizzaBlock({ id, title, price, imgUrl, sizes, types, skills }) {
   const [activeType, setActiveType] = useState(0);
   const [actievSize, setactiveSize] = useState(0);
 
-  console.log(cartItem);
-
-  //   const onClickAdd = () => {
-  //     const item = {
-  //       id,
-  //       title,
-  //       price,
-  //       imgUrl,
-  //       type: typeNames[activeType],
-  //       sixe: actievSize,
-  //     };
-  //     dispatch(addItem(item));
-  //   };
+  const addedCount = cartItem ? cartItem.count : 0;
 
   const onClickAdd = () => {
-    const item = [id, title, price, imgUrl, activeType, actievSize];
-    dispatch(addItem(item));
-  };
+      const item = {
+        id, 
+        title,
+        price,
+        imgUrl,
+        type: typeNames[activeType],
+        sixe: actievSize,
+      };
+      dispatch(addItem(item));
+   };
+
+//   const onClickAdd = () => {
+//     const item = [id, title, price, imgUrl, activeType, actievSize];
+//     dispatch(addItem(item));
+//   };
 
   return (
     <div className="pizza-block-wrapper">
@@ -74,7 +74,7 @@ function PizzaBlock({ id, title, price, imgUrl, sizes, types, skills }) {
               />
             </svg>
             <span>Добавить</span>
-            <i>0</i>
+            {addedCount > 0 && <i>{addedCount}</i>}
           </button>
         </div>
       </div>
