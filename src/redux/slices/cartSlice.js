@@ -26,31 +26,31 @@ const cartSlice = createSlice({
           count: 1,
         });
 
-		  state.totalPrice = state.items.reduce((sum, object) => {
-			  return (object.price * object.count) + sum;
-		   }, 0);
+        state.totalPrice = state.items.reduce((sum, object) => {
+          return object.price * object.count + sum;
+        }, 0);
       }
     },
-	//  plusItem(state, action) {
-	// 	const findItem = state.items.find((object) => object.id === action.payload.id);
+    //  plusItem(state, action) {
+    // 	const findItem = state.items.find((object) => object.id === action.payload.id);
 
-	// 	if (findItem) {
-	// 		findItem.count++;
-	// 	}
-	//  }, 
-	 minusItem(state, action) {
-		const findItem = state.items.find((object) => object.id === action.payload.id);
+    // 	if (findItem) {
+    // 		findItem.count++;
+    // 	}
+    //  },
+    minusItem(state, action) {
+      const findItem = state.items.find((object) => object.id === action.payload.id);
 
-		if (findItem) {
-			findItem.count--;
-		}
-		
-	 },
+      if (findItem) {
+        findItem.count--;
+      }
+    },
     removeItem(state, action) {
       state.items = state.items.filter((object) => object.id !== action.payload);
     },
     clearItems(state, action) {
       state.items = [];
+      state.totalPrice = 0;
     },
   },
 });

@@ -15,21 +15,21 @@ function PizzaBlock({ id, title, price, imgUrl, sizes, types, skills }) {
   const addedCount = cartItem ? cartItem.count : 0;
 
   const onClickAdd = () => {
-      const item = {
-        id, 
-        title,
-        price,
-        imgUrl,
-        type: typeNames[activeType],
-        sixe: actievSize,
-      };
-      dispatch(addItem(item));
-   };
+    const item = {
+      id,
+      title,
+      price,
+      imgUrl,
+      type: typeNames[activeType],
+      sixe: sizes[actievSize],
+    };
+    dispatch(addItem(item));
+  };
 
-//   const onClickAdd = () => {
-//     const item = [id, title, price, imgUrl, activeType, actievSize];
-//     dispatch(addItem(item));
-//   };
+  //   const onClickAdd = () => {
+  //     const item = [id, title, price, imgUrl, activeType, actievSize];
+  //     dispatch(addItem(item));
+  //   };
 
   return (
     <div className="pizza-block-wrapper">
