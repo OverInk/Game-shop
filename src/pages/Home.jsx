@@ -13,6 +13,7 @@ import PizzaBlock from './../components/PizzaBlock';
 import Skeleton from './../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import { MyContext } from '../App';
+import { fetchGamesAsync } from '../redux/slices/gamesSlice';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -22,33 +23,58 @@ const Home = () => {
   const categorId = useSelector((state) => state.filter.categorId);
   const sort = useSelector((state) => state.filter.sort);
   const currentPage = useSelector((state) => state.filter.currentPage);
+
+  const { items, status } = useSelector((state) => state.games);
+
   const { searchValue } = useContext(MyContext);
 
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  //   const [isLoading, setIsLoading] = useState(true);
 
   const onChangeCategor = (id) => {
     dispatch(setCategorId(id));
   };
 
-  const fetchGames = () => {
-    setIsLoading(true);
+  const fetchGames = async () => {
+    //  setIsLoading(true);
     //  fetch(
     //    `https://6516b50209e3260018ca2dff.mockapi.io/items?page=1&limit=2${
     //      categorId > 0 ? `category=${categorId}` : ''
     //    }&sortBy=${sort.sortProps}&order=desc`,
     //  )
 
-    axios
-      .get(
-        `https://6516b50209e3260018ca2dff.mockapi.io/items?page=${currentPage}&limit=3${
-          categorId > 0 ? `category=${categorId}` : ''
-        }&sortBy=${sort.sortProps}&order=desc`,
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
+    //  axios
+    //    .get(
+    //      `https:-6516b50209e3260018ca2dff.mockapi.io/items?page=${currentPage}&limit=3${
+    //        categorId > 0 ? `category=${categorId}` : ''
+    //      }&sortBy=${sort.sortProps}&order=desc`,
+    //    )
+    //    .then((res) => {
+    //      setItems(res.data);
+    //      setIsLoading(false);
+    //      console.log('проверка await');
+    //    })
+    //    .catch((err) => {
+    //      console.log(err, 'AXIOS error');
+    //      setIsLoading(false);
+    //    });
+
+    //  const res = await axios.get(
+    //    `https://6516b50209e3260018ca2dff.mockapi.io/items?page=${currentPage}&limit=3${
+    //      categorId > 0 ? `category=${categorId}` : ''
+    //    }&sortBy=${sort.sortProps}&order=desc`,
+    //  );
+    //  setItems(res.data);
+    //  setIsLoading(false);
+
+    const sortBy = sort.sortProps;
+    dispatch(
+      fetchGamesAsync({
+        sortBy,
+        categorId,
+        currentPage,
+      }),
+    );
+
     window.scrollTo(0, 0);
   };
   useEffect(() => {
@@ -84,7 +110,7 @@ const Home = () => {
       fetchGames();
     }
 
-    isSeach.current = false;
+    //  isSeach.current = false;
   }, [categorId, sort.sortProps, searchValue, currentPage]);
 
   const onChangePage = (number) => {
@@ -98,19 +124,15 @@ const Home = () => {
         <Sort valueSort={sort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        <Skeleton title="Мексиканская" price={500} />
-        <PizzaBlock test="222" title="Test" price="350" />
-        {isLoading
-          ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-          : items
-              .filter((object) => {
-                if (object.title.toLowerCase().includes(searchValue.toLowerCase())) {
-                  return true;
-                }
-                return false;
-              })
-              .map((object) => (
+      {status === 'error' ? (
+        <div>
+          <h2>Игры пустые</h2>
+        </div>
+      ) : (
+        <div className="content__items">
+          {status === 'loading'
+            ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
+            : items?.map((object) => (
                 <PizzaBlock
                   id={object.id}
                   title={object.title}
@@ -121,7 +143,8 @@ const Home = () => {
                   types={object.types}
                 />
               ))}
-      </div>
+        </div>
+      )}
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </>
   );

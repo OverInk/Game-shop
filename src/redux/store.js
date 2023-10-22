@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import filter from './slices/filterSlice';
 
 import cart from './slices/cartSlice';
+import games from './slices/gamesSlice';
 
 //configureStore- создает хранилище из библиотеки redax toolkit
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
   reducer: {
     filter,
     cart,
+    games,
   },
 });
 
