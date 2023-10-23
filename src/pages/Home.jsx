@@ -13,7 +13,7 @@ import PizzaBlock from './../components/PizzaBlock';
 import Skeleton from './../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import { MyContext } from '../App';
-import { fetchGamesAsync } from '../redux/slices/gamesSlice';
+import { fetchGamesAsync, selectGamesData } from '../redux/slices/gamesSlice';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Home = () => {
   const sort = useSelector((state) => state.filter.sort);
   const currentPage = useSelector((state) => state.filter.currentPage);
 
-  const { items, status } = useSelector((state) => state.games);
+  const { items, status } = useSelector(selectGamesData);
 
   const { searchValue } = useContext(MyContext);
 
