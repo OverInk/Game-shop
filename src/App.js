@@ -7,25 +7,19 @@ import NotFound from './pages/NotFound';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NewCard from './pages/NewCard';
 
-export const MyContext = React.createContext('');
-
 function App() {
-  const [searchValue, setSearchValue] = useState('');
-
   return (
     <div className="wrapper">
-      <MyContext.Provider value={{ searchValue, setSearchValue }}>
-        <Header />
-        <div className="content">
-          <div className="container">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/card" element={<NewCard />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </div>
+      <Header />
+      <div className="content">
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/card" element={<NewCard />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </div>
-      </MyContext.Provider>
+      </div>
     </div>
   );
 }

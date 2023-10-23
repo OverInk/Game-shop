@@ -12,7 +12,6 @@ import Sort, { listSpisok } from './../components/Sort';
 import PizzaBlock from './../components/PizzaBlock';
 import Skeleton from './../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
-import { MyContext } from '../App';
 import { fetchGamesAsync, selectGamesData } from '../redux/slices/gamesSlice';
 
 const Home = () => {
@@ -23,10 +22,9 @@ const Home = () => {
   const categorId = useSelector((state) => state.filter.categorId);
   const sort = useSelector((state) => state.filter.sort);
   const currentPage = useSelector((state) => state.filter.currentPage);
+  const searchValue = useSelector((state) => state.filter.searchValue);
 
   const { items, status } = useSelector(selectGamesData);
-
-  const { searchValue } = useContext(MyContext);
 
   //   const [isLoading, setIsLoading] = useState(true);
 
