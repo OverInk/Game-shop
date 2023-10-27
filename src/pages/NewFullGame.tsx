@@ -5,7 +5,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 const NewFullGame = () => {
   const { id } = useParams();
-  const [game, setGame] = useState();
+  const [game, setGame] = useState<{
+    imgUrl: string;
+    title: string;
+    price: number;
+  }>();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +31,7 @@ const NewFullGame = () => {
 
   return (
     <div>
+      <img src={game.imgUrl} alt="" />
       <h2>{game.title}</h2>
       <h3> Тут мой id через params{id}</h3>
       <h4>{game.price} </h4>
