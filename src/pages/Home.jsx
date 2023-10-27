@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import qs from 'qs';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { setCategorId, setCurrentPage, setFilters } from './../redux/slices/filterSlice';
 
@@ -131,15 +131,16 @@ const Home = () => {
           {status === 'loading'
             ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
             : items?.map((object) => (
-                <PizzaBlock
-                  id={object.id}
-                  title={object.title}
-                  price={object.price}
-                  imgUrl={object.img}
-                  skills={object.skills}
-                  sizes={object.sizes}
-                  types={object.types}
-                />
+                <Link key={object.id} to={`/game/${object.id}`}>
+                  <PizzaBlock
+                    title={object.title}
+                    price={object.price}
+                    imgUrl={object.img}
+                    skills={object.skills}
+                    sizes={object.sizes}
+                    types={object.types}
+                  />
+                </Link>
               ))}
         </div>
       )}
