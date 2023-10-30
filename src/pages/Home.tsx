@@ -1,20 +1,16 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import qs from 'qs';
 import { Link, useNavigate } from 'react-router-dom';
-
-import { setCategorId, setCurrentPage, setFilters } from './../redux/slices/filterSlice';
-
+import { setCategorId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-
-import Categor from './../components/Categor';
-import Sort, { listSpisok } from './../components/Sort';
-import PizzaBlock from './../components/PizzaBlock';
-import Skeleton from './../components/PizzaBlock/Skeleton';
+import Categor from '../components/Categor';
+import Sort, { listSpisok } from '../components/Sort';
+import PizzaBlock from '../components/PizzaBlock';
+import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import { fetchGamesAsync, selectGamesData } from '../redux/slices/gamesSlice';
 
-const Home = () => {
+const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSeach = useRef(false);
@@ -28,7 +24,7 @@ const Home = () => {
 
   //   const [isLoading, setIsLoading] = useState(true);
 
-  const onChangeCategor = (id) => {
+  const onChangeCategor = (id: number) => {
     dispatch(setCategorId(id));
   };
 
@@ -66,6 +62,7 @@ const Home = () => {
 
     const sortBy = sort.sortProps;
     dispatch(
+      //@ts-ignore
       fetchGamesAsync({
         sortBy,
         categorId,
@@ -111,7 +108,7 @@ const Home = () => {
     //  isSeach.current = false;
   }, [categorId, sort.sortProps, searchValue, currentPage]);
 
-  const onChangePage = (number) => {
+  const onChangePage = (number: number) => {
     dispatch(setCurrentPage(number));
   };
 
@@ -130,7 +127,7 @@ const Home = () => {
         <div className="content__items">
           {status === 'loading'
             ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-            : items?.map((object) => (
+            : items?.map((object: any) => (
                 <Link key={object.id} to={`/game/${object.id}`}>
                   <PizzaBlock
                     title={object.title}

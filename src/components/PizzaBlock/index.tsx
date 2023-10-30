@@ -6,7 +6,25 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addItem, selectCartItemById } from '../../redux/slices/cartSlice';
 const typeNames = ['тонкое', 'традиционные'];
 
-function PizzaBlock({ id, title, price, imgUrl, sizes, types, skills }) {
+type PizzaBlockProps = {
+  id: string;
+  title: string;
+  price: number;
+  sizes: any;
+  imgUrl: string;
+  types: number;
+  skills: string;
+};
+
+const PizzaBlock: React.FC<PizzaBlockProps> = ({
+  id,
+  title,
+  price,
+  imgUrl,
+  sizes,
+  types,
+  skills,
+}) => {
   const dispatch = useDispatch();
   const cartItem = useSelector(selectCartItemById(id));
   const [activeType, setActiveType] = useState(0);
@@ -39,7 +57,7 @@ function PizzaBlock({ id, title, price, imgUrl, sizes, types, skills }) {
         <div>{skills}</div>
         <div className="pizza-block__selector">
           <ul>
-            {types?.map((typeId) => (
+            {types?.map((typeId: number) => (
               <li
                 key={typeId}
                 onClick={() => setActiveType(typeId)}
@@ -49,7 +67,7 @@ function PizzaBlock({ id, title, price, imgUrl, sizes, types, skills }) {
             ))}
           </ul>
           <ul>
-            {sizes?.map((sice, index) => (
+            {sizes?.map((sice: number, index: number) => (
               <li
                 key={index}
                 onClick={() => setactiveSize(index)}
@@ -80,6 +98,6 @@ function PizzaBlock({ id, title, price, imgUrl, sizes, types, skills }) {
       </div>
     </div>
   );
-}
+};
 
 export default PizzaBlock;

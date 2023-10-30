@@ -8,22 +8,25 @@ const Search = () => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
 
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const onClickClear = () => {
     setSearchValue('');
     setValue('');
-    inputRef.current.focus();
+    //  if (inputRef.current) {
+    // 	inputRef.current.focus();
+    //  }
+    inputRef.current?.focus();
   };
 
   const updateSearch = useCallback(
-    debounce((str) => {
+    debounce((str: string) => {
       dispatch(setSearchValue(str));
     }, 1000),
     [],
   );
 
-  const onTestDebounce = (event) => {
+  const onTestDebounce = (event: any) => {
     setValue(event.target.value);
     updateSearch(event.target.value);
   };

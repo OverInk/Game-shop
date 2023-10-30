@@ -10,7 +10,7 @@ const NewCard = () => {
   const dispatch = useDispatch();
   const { totalPrice, items } = useSelector((state) => state.cart);
 
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
 
   const onClickClear = () => {
     if (window.confirm('Clear your trash?')) {
@@ -92,7 +92,7 @@ const NewCard = () => {
             </div>
           </div>
           <div className="content__itemscard">
-            {items?.map((item) => (
+            {items?.map((item: any) => (
               <CartItem
                 key={item.id}
                 id={item.id}
