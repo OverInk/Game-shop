@@ -1,9 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useRef, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { setSort } from '../redux/slices/filterSlice';
 
-export const listSpisok = [
+
+type SortItem = {
+	nameList: string;
+	sortProps: string;
+}
+
+export const listSpisok:SortItem[] = [
   { nameList: 'популярности', sortProps: 'raiting' },
   { nameList: 'цене', sortProps: 'price' },
   { nameList: 'алфавиту', sortProps: 'title' },
@@ -13,9 +19,9 @@ function Sort({ valueSort }) {
   const dispatch = useDispatch();
   const [openList, setOpenList] = useState(false);
 
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
-  const onClickListselect = (obj) => {
+  const onClickListselect = (obj:SortItem) => {
     dispatch(setSort(obj));
     setOpenList(false);
   };
@@ -36,8 +42,8 @@ function Sort({ valueSort }) {
   //   }, []);
 
   //   useEffect(() => {
-  //     //он же handleClickOutside как по уроку
-  //     const cancelSortList = (event) => {
+//он же handleClickOutside как по уроку
+  //     const cancelSortList = (event:any) => {
   //       if (!event.path.includes(sortRef.current)) {
   //         console.log('закроет сорт (sort)');
   //         setOpenList(false);

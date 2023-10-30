@@ -1,6 +1,11 @@
-import { useState } from 'react';
+import React from 'react';
 
-function Categor({ valueCategor, onChangeCategor }) {
+type CategorProps = {
+	valueCategor: number;
+	onChangeCategor: any;
+}
+
+const Categor:React.FC<CategorProps> = ({ valueCategor, onChangeCategor }) => {
   const categor = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
   return (
