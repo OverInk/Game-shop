@@ -15,10 +15,10 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
   const isSeach = useRef(false);
   const isMounted = useRef(false);
-  const categorId = useSelector((state) => state.filter.categorId);
-  const sort = useSelector((state) => state.filter.sort);
-  const currentPage = useSelector((state) => state.filter.currentPage);
-  const searchValue = useSelector((state) => state.filter.searchValue);
+  const categorId = useSelector((state:any) => state.filter.categorId);
+  const sort = useSelector((state:any) => state.filter.sort);
+  const currentPage = useSelector((state:any) => state.filter.currentPage);
+  const searchValue = useSelector((state:any) => state.filter.searchValue);
 
   const { items, status } = useSelector(selectGamesData);
 

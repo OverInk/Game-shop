@@ -26,7 +26,7 @@ const Search = () => {
     [],
   );
 
-  const onTestDebounce = (event: any) => {
+  const onTestDebounce = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     updateSearch(event.target.value);
   };
