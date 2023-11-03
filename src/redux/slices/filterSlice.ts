@@ -1,6 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const initialState = {
+type Sort = {
+  nameList: string;
+  sortProps: 'price' | 'title' | 'raiting';
+};
+
+interface FilterSliceState {
+  searchValue: string;
+  categorId: number;
+  currentPage: number;
+  sort: Sort;
+}
+
+export const initialState: FilterSliceState = {
   searchValue: '',
   categorId: 0,
   currentPage: 1,
@@ -24,7 +36,7 @@ const filterSlice = createSlice({
       state.sort = action.payload;
     },
     setCurrentPage(state, action) {
-      state.pageCount = action.payload;
+      state.currentPage = action.payload;
     },
     setFilters(state, action) {
       state.currentPage = Number(action.payload.currentPage);
