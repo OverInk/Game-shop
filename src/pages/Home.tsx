@@ -62,7 +62,6 @@ const Home: React.FC = () => {
 
     const sortBy = sort.sortProps;
     dispatch(
-      //@ts-ignore
       fetchGamesAsync({
         sortBy,
         categorId,

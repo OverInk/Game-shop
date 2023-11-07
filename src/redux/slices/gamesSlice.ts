@@ -2,13 +2,30 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from '../store';
 
+
 type FetchGamesArgs = Record<string, string>;
+
+type Pizza = {
+	id: string;
+	title: string;
+	price: number;
+	sizes: any;
+	imgUrl: string;
+	types: number;
+	skills: string;
+ };
+
+ enum Status {
+	LOADING = 'loading',
+	SUCCESS = 'success',
+	ERROR = 'error'
+ }
 
 export const fetchGamesAsync = createAsyncThunk(
   'games/fetchGamesStatus',
   async (params: FetchGamesArgs, thunkAPI) => {
     const { sortBy, categorId, currentPage } = params;
-    const { data } = await axios.get(
+    const { data } = await axios.get<Pizza[]>(
       `https://6516b50209e3260018ca2dff.mockapi.io/items?page=${currentPage}&limit=3${
         categorId > 0 ? `category=${categorId}` : ''
       }&sortBy=${sortBy}&order=desc`,
@@ -22,24 +39,14 @@ export const fetchGamesAsync = createAsyncThunk(
   },
 );
 
-type Pizza = {
-  id: string;
-  title: string;
-  price: number;
-  sizes: any;
-  imgUrl: string;
-  types: number;
-  skills: string;
-};
-
 interface PizzaSliceState {
   items: Pizza[];
-  status: 'loading' | 'success' | 'error';
+  status: Status;
 }
 
 export const initialState: PizzaSliceState = {
   items: [],
-  status: 'loading', //loading | success | error
+  status: Status.LOADING,
 };
 
 const gamesSlice = createSlice({
@@ -52,17 +59,17 @@ const gamesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchGamesAsync.pending, (state) => {
-      state.status = 'loading';
+      state.status = Status.LOADING
       state.items = [];
     });
     builder.addCase(fetchGamesAsync.fulfilled, (state, action) => {
       console.log(action, 'fullfilled');
       state.items = action.payload;
-      state.status = 'success';
+      state.status = Status.SUCCESS;
     });
     builder.addCase(fetchGamesAsync.rejected, (state, action) => {
       console.log(action, 'regected');
-      state.status = 'error';
+      state.status = Status.ERROR;
       state.items = [];
     });
   },
