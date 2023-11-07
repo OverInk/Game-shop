@@ -1,25 +1,31 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from '../store';
-
+import { Sort } from './filterSlice';
 
 type FetchGamesArgs = Record<string, string>;
 
 type Pizza = {
-	id: string;
-	title: string;
-	price: number;
-	sizes: any;
-	imgUrl: string;
-	types: number;
-	skills: string;
- };
+  id: string;
+  title: string;
+  price: number;
+  sizes: any;
+  imgUrl: string;
+  types: number;
+  skills: string;
+};
 
- enum Status {
-	LOADING = 'loading',
-	SUCCESS = 'success',
-	ERROR = 'error'
- }
+enum Status {
+  LOADING = 'loading',
+  SUCCESS = 'success',
+  ERROR = 'error',
+}
+
+export type SearchGamesParams = {
+  sortBy: string;
+  categorId: string;
+  currentPage: string;
+};
 
 export const fetchGamesAsync = createAsyncThunk(
   'games/fetchGamesStatus',
@@ -59,7 +65,7 @@ const gamesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchGamesAsync.pending, (state) => {
-      state.status = Status.LOADING
+      state.status = Status.LOADING;
       state.items = [];
     });
     builder.addCase(fetchGamesAsync.fulfilled, (state, action) => {

@@ -1,18 +1,24 @@
 import React, { useEffect, useRef } from 'react';
 import qs from 'qs';
 import { Link, useNavigate } from 'react-router-dom';
-import { setCategorId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
+import {
+  FilterSliceState,
+  setCategorId,
+  setCurrentPage,
+  setFilters,
+} from '../redux/slices/filterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Categor from '../components/Categor';
 import Sort, { listSpisok } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
-import { fetchGamesAsync, selectGamesData } from '../redux/slices/gamesSlice';
+import { SearchGamesParams, fetchGamesAsync, selectGamesData } from '../redux/slices/gamesSlice';
+import { useAppDispatch } from '../redux/store';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isSeach = useRef(false);
   const isMounted = useRef(false);
   const categorId = useSelector((state: any) => state.filter.categorId);
@@ -87,8 +93,8 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
-      const sort = listSpisok.find((obj) => obj.sortProps === params.sortProps);
+      const params = qs.parse(window.location.search.substring(1)) as unknown as SearchGamesParams;
+      const sort = listSpisok.find((obj) => obj.sortProps === params.sortBy);
       dispatch(
         setFilters({
           ...params,

@@ -1,23 +1,23 @@
 import React, { useRef, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { setSort } from '../redux/slices/filterSlice';
+import { SortPropsEnum, setSort } from '../redux/slices/filterSlice';
 
 type SortItem = {
   nameList: string;
-  sortProps: string;
+  sortProps: SortPropsEnum;
 };
 type SortTypeProps = {
   valueSort: any;
 };
 
 export const listSpisok: SortItem[] = [
-  { nameList: 'популярности', sortProps: 'raiting' },
-  { nameList: 'цене', sortProps: 'price' },
-  { nameList: 'алфавиту', sortProps: 'title' },
+  { nameList: 'популярности', sortProps: SortPropsEnum.RATING_DESC },
+  { nameList: 'цене', sortProps: SortPropsEnum.PRICE_DESC },
+  { nameList: 'алфавиту', sortProps: SortPropsEnum.TITLE_DESC },
 ];
 
-const Sort: React.FC<SortTypeProps> = ({ valueSort }) => {
+const SortPopat: React.FC<SortTypeProps> = ({ valueSort }) => {
   const dispatch = useDispatch();
   const [openList, setOpenList] = useState(false);
 
@@ -93,4 +93,4 @@ const Sort: React.FC<SortTypeProps> = ({ valueSort }) => {
   );
 };
 
-export default Sort;
+export default SortPopat;
