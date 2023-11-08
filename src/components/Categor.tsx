@@ -2,12 +2,14 @@ import React from 'react';
 import useWhyDidYouUpdate from 'ahooks/lib/useWhyDidYouUpdate';
 
 type CategorProps = {
-	valueCategor: number;
-	onChangeCategor: (i:number) => void;
-}
+  valueCategor: number;
+  onChangeCategor: (i: number) => void;
+};
 
-const Categor:React.FC<CategorProps> = ({ valueCategor, onChangeCategor }) => {
+const Categor: React.FC<CategorProps> = ({ valueCategor, onChangeCategor }) => {
   const categor = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+
+  useWhyDidYouUpdate('Categor', { valueCategor, onChangeCategor });
 
   return (
     <div className="categories">
@@ -23,6 +25,6 @@ const Categor:React.FC<CategorProps> = ({ valueCategor, onChangeCategor }) => {
       </ul>
     </div>
   );
-}
+};
 
 export default Categor;

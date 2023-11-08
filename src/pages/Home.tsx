@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import qs from 'qs';
-import {useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   FilterSliceState,
   setCategorId,
@@ -30,9 +30,9 @@ const Home: React.FC = () => {
 
   //   const [isLoading, setIsLoading] = useState(true);
 
-  const onChangeCategor = (id: number) => {
+  const onChangeCategor = React.useCallback((id: number) => {
     dispatch(setCategorId(id));
-  };
+  }, []);
 
   const fetchGames = async () => {
     //  setIsLoading(true);
@@ -133,16 +133,16 @@ const Home: React.FC = () => {
           {status === 'loading'
             ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
             : items?.map((object: any) => (
-                  <PizzaBlock
-							key={object.id}
-                    id={object.id}
-                    title={object.title}
-                    price={object.price}
-                    imgUrl={object.img}
-                    skills={object.skills}
-                    sizes={object.sizes}
-                    types={object.types}
-                  />
+                <PizzaBlock
+                  key={object.id}
+                  id={object.id}
+                  title={object.title}
+                  price={object.price}
+                  imgUrl={object.img}
+                  skills={object.skills}
+                  sizes={object.sizes}
+                  types={object.types}
+                />
               ))}
         </div>
       )}
