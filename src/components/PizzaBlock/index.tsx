@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -53,8 +54,10 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-        <h4 className="pizza-block__title">{title}</h4>
-        <img className="pizza-block__image" src={imgUrl} alt="Pizza" />
+			<Link key={id} to={`/game/${id}`}>
+				<h4 className="pizza-block__title">{title}</h4>
+				<img className="pizza-block__image" src={imgUrl} alt="Pizza" />
+			</Link>
         <div>{skills}</div>
         <div className="pizza-block__selector">
           <ul>

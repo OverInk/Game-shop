@@ -1,4 +1,5 @@
 import React from 'react';
+import useWhyDidYouUpdate from 'ahooks/lib/useWhyDidYouUpdate';
 
 type CategorProps = {
 	valueCategor: number;

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import qs from 'qs';
-import { Link, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import {
   FilterSliceState,
   setCategorId,
@@ -133,8 +133,8 @@ const Home: React.FC = () => {
           {status === 'loading'
             ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
             : items?.map((object: any) => (
-                <Link key={object.id} to={`/game/${object.id}`}>
                   <PizzaBlock
+							key={object.id}
                     id={object.id}
                     title={object.title}
                     price={object.price}
@@ -143,7 +143,6 @@ const Home: React.FC = () => {
                     sizes={object.sizes}
                     types={object.types}
                   />
-                </Link>
               ))}
         </div>
       )}
