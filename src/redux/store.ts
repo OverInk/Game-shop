@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import filter from './slices/filterSlice';
-import cart from './slices/cartSlice';
+import cart from './slices/cart/slice';
 import games from './slices/gamesSlice';
 import { useDispatch } from 'react-redux';
 
@@ -18,8 +18,8 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 
-export type AppDispatch = typeof store.dispatch
-export const useAppDispatch = () => useDispatch<AppDispatch>()
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>();
 
 // console.log(store,'REDUX' )
 
