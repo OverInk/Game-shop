@@ -1,20 +1,23 @@
 import React, { useEffect, useRef } from 'react';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
-import {
-  FilterSliceState,
-  setCategorId,
-  setCurrentPage,
-  setFilters,
-} from '../redux/slices/filterSlice';
-import { useDispatch, useSelector } from 'react-redux';
+// import {
+//   FilterSliceState,
+//   setCategorId,
+//   setCurrentPage,
+//   setFilters,
+// } from '../redux/slices/filterSlice';
+import { useSelector } from 'react-redux';
 import Categor from '../components/Categor';
 import Sort, { listSpisok } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
-import { SearchGamesParams, fetchGamesAsync, selectGamesData } from '../redux/slices/gamesSlice';
+import { selectGamesData } from '../redux/slices/games/slice';
 import { useAppDispatch } from '../redux/store';
+import { setCategorId, setCurrentPage, setFilters } from '../redux/slices/filter/slice';
+import { fetchGamesAsync } from '../redux/slices/games/asyncActions';
+import { SearchGamesParams } from '../redux/slices/games/types';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();

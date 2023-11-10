@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import filter from './slices/filterSlice';
+import filter from './slices/filter/slice';
 import cart from './slices/cart/slice';
-import games from './slices/gamesSlice';
+import games from './slices/games/slice';
 import { useDispatch } from 'react-redux';
 
 //configureStore- создает хранилище из библиотеки redax toolkit
