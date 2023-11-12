@@ -13,6 +13,9 @@ import Sort, { listSpisok } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
+
+// import { add } from '../utils/math';
+
 import { selectGamesData } from '../redux/slices/games/slice';
 import { useAppDispatch } from '../redux/store';
 import { setCategorId, setCurrentPage, setFilters } from '../redux/slices/filter/slice';
@@ -24,6 +27,11 @@ const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const isSeach = useRef(false);
   const isMounted = useRef(false);
+
+  //   import('../utils/math').then((math) => {
+  //     console.log(math.add(16, 26));
+  //   });
+
   const categorId = useSelector((state: any) => state.filter.categorId);
   const sort = useSelector((state: any) => state.filter.sort);
   const currentPage = useSelector((state: any) => state.filter.currentPage);
