@@ -1,15 +1,17 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './scss/app.scss';
 
 // import Header from './components/Header';
 import Home from './pages/Home';
-import NotFound from './pages/NotFound';
-import { Routes, Route } from 'react-router-dom';
-// import NewCard from './pages/NewCard';
-import NewFullGame from './pages/NewFullGame';
 import MainLayout from './layouts/MainLayout';
+// import NotFound from './pages/NotFound';
+// import NewCard from './pages/NewCard';
+// import NewFullGame from './pages/NewFullGame';
 
-const NewCard = React.lazy(() => import('./pages/NewCard'));
+const NewCard = lazy(() => import('./pages/NewCard'));
+const NewFullGame = lazy(() => import('./pages/NewFullGame'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 function App() {
   return (
@@ -19,13 +21,21 @@ function App() {
         <Route
           path="card"
           element={
-            <React.Suspense fallback={<div>Идет загрузка...</div>}>
+            <Suspense fallback={<div>Идет загрузка...</div>}>
               <NewCard />
-            </React.Suspense>
+            </Suspense>
           }
         />
-        <Route path="game/:id" element={<NewFullGame />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="game/:id" element={
+			<Suspense fallback={<div>Идет загрузка...</div>}>
+				<NewFullGame/>
+			</Suspense>
+		  } />
+        <Route path="*" element={
+			<Suspense fallback={<div>Идет загрузка...</div>}>
+				<NotFound/>
+			</Suspense>
+		  } />
       </Route>
     </Routes>
 
