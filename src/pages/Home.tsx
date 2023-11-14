@@ -14,6 +14,8 @@ import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 
+//import {Skeleton, PizzaBlock} from "../components"
+
 // import { add } from '../utils/math';
 
 import { selectGamesData } from '../redux/slices/games/slice';
