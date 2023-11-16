@@ -12,6 +12,7 @@ type CartItemProps = {
   price: number;
   count: number;
   imgUrl: string;
+  skills: string;
 };
 
 const CartItemBlock: React.FC<CartItemProps> = ({
@@ -22,6 +23,7 @@ const CartItemBlock: React.FC<CartItemProps> = ({
   count,
   imgUrl,
   type,
+  skills,
 }) => {
   const dispath = useDispatch();
 
@@ -56,9 +58,11 @@ const CartItemBlock: React.FC<CartItemProps> = ({
       </div>
       <div className="cart__item-count">
         <button
-		  	disabled={count === 1}
+          disabled={count === 1}
           onClick={onClickMinus}
-          className={clsx("button button--outline button--circle cart__item-count-minus", {'cart__item-count-mnus--disabled': count === 1})}>
+          className={clsx('button button--outline button--circle cart__item-count-minus', {
+            'cart__item-count-mnus--disabled': count === 1,
+          })}>
           <svg
             width="10"
             height="10"
