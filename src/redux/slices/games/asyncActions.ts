@@ -7,7 +7,9 @@ export const fetchGamesAsync = createAsyncThunk(
   async (params: FetchGamesArgs, thunkAPI) => {
     const { sortBy, categorId, currentPage } = params;
     const { data } = await axios.get<Pizza[]>(
-      `https://6516b50209e3260018ca2dff.mockapi.io/items?page=${currentPage}&limit=3${`category=${categorId}`}&sortBy=${sortBy}&order=desc`,
+      `https://6516b50209e3260018ca2dff.mockapi.io/items?page=${currentPage}&limit=3${
+        categorId > '0' ? `category=${categorId}` : ''
+      }&sortBy=${sortBy}&order=desc`,
     );
 
     if (data.length === 0) {
