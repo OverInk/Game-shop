@@ -1,13 +1,13 @@
 import React, { useCallback, useRef, useState } from 'react';
 import debounce from 'lodash.debounce';
-import style from './Search.module.scss';
 import { useDispatch } from 'react-redux';
 import { setSearchValue } from '../../redux/slices/filter/slice';
 
+import style from './Search.module.scss';
+
 const Search = () => {
   const dispatch = useDispatch();
-  const [value, setValue] = useState('');
-
+  const [value, setValue] = useState<string>('');
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onClickClear = () => {
@@ -29,6 +29,7 @@ const Search = () => {
   const onTestDebounce = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     updateSearch(event.target.value);
+    console.log(event.target.value);
   };
 
   return (
@@ -39,7 +40,7 @@ const Search = () => {
         value={value}
         onChange={onTestDebounce}
         className={style.search}
-        placeholder="Поиск.."
+        placeholder="Поиск игры.."
       />
       {value && <svg onClick={onClickClear} className={style.iconTrash} />}
     </div>

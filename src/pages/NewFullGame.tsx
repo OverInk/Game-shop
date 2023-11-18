@@ -30,8 +30,8 @@ const NewFullGame = () => {
   }
 
   return (
-    <div>
-      <img src={game.imgUrl} alt="" />
+    <div className="container">
+      <img src={game.imgUrl} alt="картинка с запроса определенной игры" />
       <h2>{game.title}</h2>
       <h3> Тут мой id через params{id}</h3>
       <h4>{game.price} </h4>

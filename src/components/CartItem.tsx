@@ -23,7 +23,6 @@ const CartItemBlock: React.FC<CartItemProps> = ({
   count,
   imgUrl,
   type,
-  skills,
 }) => {
   const dispath = useDispatch();
 
