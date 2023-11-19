@@ -48,43 +48,13 @@ const Home: React.FC = () => {
   }, []);
 
   const fetchGames = async () => {
-    //  setIsLoading(true);
-    //  fetch(
-    //    `https://6516b50209e3260018ca2dff.mockapi.io/items?page=1&limit=2${
-    //      categorId > 0 ? `category=${categorId}` : ''
-    //    }&sortBy=${sort.sortProps}&order=desc`,
-    //  )
-
-    //  axios
-    //    .get(
-    //      `https:-6516b50209e3260018ca2dff.mockapi.io/items?page=${currentPage}&limit=3${
-    //        categorId > 0 ? `category=${categorId}` : ''
-    //      }&sortBy=${sort.sortProps}&order=desc`,
-    //    )
-    //    .then((res) => {
-    //      setItems(res.data);
-    //      setIsLoading(false);
-    //      console.log('проверка await');
-    //    })
-    //    .catch((err) => {
-    //      console.log(err, 'AXIOS error');
-    //      setIsLoading(false);
-    //    });
-
-    //  const res = await axios.get(
-    //    `https://6516b50209e3260018ca2dff.mockapi.io/items?page=${currentPage}&limit=3${
-    //      categorId > 0 ? `category=${categorId}` : ''
-    //    }&sortBy=${sort.sortProps}&order=desc`,
-    //  );
-    //  setItems(res.data);
-    //  setIsLoading(false);
-
     const sortBy = sort.sortProps;
     dispatch(
       fetchGamesAsync({
         sortBy,
         categorId,
         currentPage,
+        searchValue,
       }),
     );
 
@@ -108,12 +78,16 @@ const Home: React.FC = () => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1)) as unknown as SearchGamesParams;
       const sort = listSpisok.find((obj) => obj.sortProps === params.sortBy);
-      dispatch(
-        setFilters({
-          ...params,
-          sort,
-        }),
-      );
+      if (sort) {
+        dispatch(
+          setFilters({
+            categorId: Number(params.categorId),
+            currentPage: Number(params.currentPage),
+            searchValue: params.sortBy,
+            sort,
+          }),
+        );
+      }
       isSeach.current = true;
     }
   }, []);
