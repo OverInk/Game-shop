@@ -53,7 +53,7 @@ const NewCard: React.FC = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"></path>
               </svg>
-              Корзина
+              Корзина выбранных вами игр:
             </h2>
             <div onClick={onClickClear} className="cart__clear">
               <svg
@@ -95,14 +95,15 @@ const NewCard: React.FC = () => {
             {items?.map((item: any) => (
               <CartItem
                 key={item.id}
-                id={item.id}
-                title={item.title}
-                price={item.price}
-                imgUrl={item.img}
-                skills={item.skills}
-                size={item.sizes}
-                type={item.types}
-                count={0}
+					 {...item}
+               //  id={item.id}
+               //  title={item.title}
+               //  price={item.price}
+               //  imgUrl={item.img}
+               //  skills={item.skills}
+               //  size={item.sizes}
+               //  type={item.types}
+               //  count={0}
               />
             ))}
           </div>
